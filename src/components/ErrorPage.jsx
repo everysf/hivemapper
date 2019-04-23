@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import MobileNavSlide from './MobileNav';
+import HamburgerMenu from "react-hamburger-menu"
 
 const Wrapper = styled.div`
 
@@ -7,6 +9,15 @@ const Wrapper = styled.div`
     min-height: 100vh;
     min-width: 100vw;
 
+    @media (max-width: 995px) {
+            .mobileSlide {
+            display: !none;
+        }
+    }
+    
+    .burger {
+        margin: 10px;
+    }
 `
 
 const Navigation = styled.div`
@@ -34,19 +45,17 @@ const Divider = styled.div`
     background-color: black;
     margin: 0 10px;
 
-`    
+`
 
 const Icon = styled.div`
 
-    background-image: ${props=> (props.mobile == true ? "url(https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_RGB_White.png)" : "url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3130484/spotify-logo.svg)")};
-    height: ${props => (props.mobile == true ? "30px" : "45px")};
+    background-image: ${props => (props.mobile === true ? "url(https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_RGB_White.png)" : "url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3130484/spotify-logo.svg)")};
+    height: ${props => (props.mobile === true ? "30px" : "45px")};
     width: 135px;
     background-size: contain;
     background-repeat: no-repeat;
-    margin: 20px;
-    margin: ${props => (props.mobile == true ? "15px" : "20px")};
-
-
+    margin: ${props => (props.mobile === true ? "15px 20px" : "20px")};
+    opacity: ${props => (props.hide === true ? "0" : "1")}
 `
 
 const Links = styled.div`
@@ -153,12 +162,12 @@ const RecordContainer = styled.div`
     }
 
     @media (max-width: 765px) {
-        margin: 0 auto;
+        margin: 30px auto 0;
         width: 275px;
         height: 275px;
     }
 
-` 
+`
 
 const RecordArm = styled.div`
     position: relative;
@@ -204,9 +213,22 @@ const Record = styled.div`
 const MobileNav = styled.div`
 
     height: 55px;
-    background-color: black;
+    background-color: ${props => (props.hidden === true ? "rgba(0,0,0,0)" : "black")};
+    max-width: 100%;
     width: 100%;
     display: none;
+    position: fixed;
+    z-index: 100;
+    top: 0;
+
+    .flex {
+        max-width: 775px;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+        margin: 0 auto;
+    }
 
     @media (max-width: 990px) {
         display: flex;
@@ -219,40 +241,72 @@ const MobileToggle = styled.div`
     height: 20px;
     width: 20px;
     background-color: white;
+    margin: 20px;
 
 `
 
 class ErrorPage extends Component {
 
-    state ={}
+    state = {
+        mobileNavHidden: false,
+        number: "21",
+        open: null
+    }
+
+    componentDidMount() {
+
+        this.setState({ number: "22", mobileNavHidden: false })
+
+    }
+
+
+    handleClick() {
+        this.setState({
+            mobileNavHidden: !this.state.mobileNavHidden
+        });
+    }
+
 
     render() {
-        return(
+        return (
             <Wrapper>
                 <Navigation>
-                    <Icon />
+                    <Icon hidden={this.state.mobileNavHidden} />
                     <Links>
                         <a href="#">Premium</a>
                         <a href="#">Help</a>
                         <a href="#">Download</a>
-                        <Divider/>
+                        <Divider />
                         <a href="#">Sign Up</a>
-                        <a href="#">Login</a>                    
+                        <a href="#">Login</a>
                     </Links>
                 </Navigation>
-                <MobileNav>
-                    <div>
-                        <Icon mobile={true}/>
-                        <MobileToggle />
-                    </div>
+                <MobileNavSlide hidden={this.state.mobileNavHidden} className="mobileSlide"/>
+                <MobileNav hidden={this.state.mobileNavHidden} >
+                    <div className="flex">
+                        <Icon mobile={true} hide={this.state.mobileNavHidden}/>
+                        <div  className="burger">                        <HamburgerMenu
+                            style={{marginRight: "20px"}}
+                            isOpen={this.state.mobileNavHidden}
+                            menuClicked={this.handleClick.bind(this)}
+                            width={22}
+                            height={15}
+                            strokeWidth={3}
+                            rotate={0}
+                            color='white'
+                            borderRadius={0}
+                            animationDuration={0.2}
+                        /></div>
 
+                        {/* <MobileToggle onClick={this.toggleNavigationSlide}/> */}
+                    </div>
                 </MobileNav>
                 <BodyContainer>
                     <TextContainer>
                         <div>
-                        <h2>404s and heartbreaks</h2>
-                        <p>We couldn’t find the page you were looking for. Maybe our FAQ or Community can help?</p>
-                        <a href="#">GO BACK</a>
+                            <h2>404s and heartbreaks</h2>
+                            <p>We couldn’t find the page you were looking for. Maybe our FAQ or Community can help?</p>
+                            <a href="#">GO BACK</a>
                         </div>
                     </TextContainer>
                     <RecordContainer>
@@ -264,6 +318,6 @@ class ErrorPage extends Component {
         )
     }
 
-} 
+}
 
 export default ErrorPage
