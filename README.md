@@ -7,3 +7,13 @@ The purpose of this challenge was to test responsive web abilities by copying th
 - React Router Dom
 - Styled Components
 - Hamburger Menu
+
+# How to Boot
+
+- Open file in bash
+- Use "npm i" to install dependancies
+- use "npm start" to launch local host
+
+# Author
+
+All development was produced by Kevin Macaraeg

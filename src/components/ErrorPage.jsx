@@ -255,8 +255,7 @@ class ErrorPage extends Component {
 
     componentDidMount() {
 
-        this.setState({ number: "22", mobileNavHidden: false })
-
+        this.setState({mobileNavHidden: false })
 
     }
 
@@ -297,7 +296,7 @@ class ErrorPage extends Component {
                 <MobileNav hidden={this.state.mobileNavHidden} >
                     <div className="flex">
                         <Icon mobile={true} hide={this.state.mobileNavHidden}/>
-                        <div  className="burger">                        <HamburgerMenu
+                        <div  className="burger">                <HamburgerMenu
                             style={{marginRight: "20px"}}
                             isOpen={this.state.mobileNavHidden}
                             menuClicked={this.handleClick.bind(this)}
@@ -309,8 +308,6 @@ class ErrorPage extends Component {
                             borderRadius={0}
                             animationDuration={0.2}
                         /></div>
-
-                        {/* <MobileToggle onClick={this.toggleNavigationSlide}/> */}
                     </div>
                 </MobileNav>
                 <BodyContainer>
