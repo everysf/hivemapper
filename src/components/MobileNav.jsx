@@ -30,6 +30,7 @@ const Wrapper = styled.div`
     .linkBox {
         right: -30px;
     }
+    
 }
 
 `
