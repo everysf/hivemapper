@@ -1,19 +1,14 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import MobileNavSlide from './MobileNav';
-import HamburgerMenu from "react-hamburger-menu"
+import HamburgerMenu from "react-hamburger-menu";
+import anime from 'animejs';
 
 const Wrapper = styled.div`
 
     background-color: #FECDD2;
     min-height: 100vh;
     min-width: 100vw;
-
-    @media (max-width: 995px) {
-            .mobileSlide {
-            display: !none;
-        }
-    }
     
     .burger {
         margin: 10px;
@@ -32,7 +27,7 @@ const Navigation = styled.div`
         width: 950px;
     }
 
-    @media (max-width: 995px) {
+    @media (max-width: 990px) {
         display: none;
     }
 
@@ -55,7 +50,7 @@ const Icon = styled.div`
     background-size: contain;
     background-repeat: no-repeat;
     margin: ${props => (props.mobile === true ? "15px 20px" : "20px")};
-    opacity: ${props => (props.hide === true ? "0" : "1")}
+    opacity: ${props => (props.hide === true ? ".3" : "1")}
 `
 
 const Links = styled.div`
@@ -121,6 +116,11 @@ const TextContainer = styled.div`
         font-weight: 700;
         letter-spacing: 3px;
         color: black;
+        transiion: .2s ease;
+    }
+
+    a:hover {
+        opacity: .7
     }
 
     @media (max-width: 990px) {
@@ -213,7 +213,7 @@ const Record = styled.div`
 const MobileNav = styled.div`
 
     height: 55px;
-    background-color: ${props => (props.hidden === true ? "rgba(0,0,0,0)" : "black")};
+    background-color: black;
     max-width: 100%;
     width: 100%;
     display: none;
@@ -257,13 +257,25 @@ class ErrorPage extends Component {
 
         this.setState({ number: "22", mobileNavHidden: false })
 
+
     }
 
 
     handleClick() {
         this.setState({
             mobileNavHidden: !this.state.mobileNavHidden
+        })
+
+        anime({
+            targets: '.linkBox .el',
+            marginLeft: "40px",
+            delay: anime.stagger(10),
         });
+
+        anime({
+        targets: '.linkBox',
+        right: "0",
+        })
     }
 
 

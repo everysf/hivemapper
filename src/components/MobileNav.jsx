@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styled from 'styled-components';
 
+
 const Wrapper = styled.div`
 
     transition: 1s ease;
@@ -22,17 +23,26 @@ const Wrapper = styled.div`
         margin: 0 auto;
     }
 
+    @media (min-width: 990px) {
+        display: none;
+    }
+
+    .linkBox {
+        right: -30px;
+    }
+}
+
 `
 
 const Links = styled.div`
 
     position: fixed;
-    right: 0;
+    right: 40;
     color: white;
     background-color: black;
     width: 450px;
     min-height: 100vh;
-    padding: 70px 10px 50px 40px;
+    padding: 70px 10px 50px 0px;
     text-align: left;
 
     @media (max-width: 775px) {
@@ -55,6 +65,10 @@ const Links = styled.div`
         font-size: 28px;
         font-weight: 700;
         padding-bottom: 25px;
+    }
+
+    .el {
+        margin-left: 60px;
     }
 
 `
@@ -83,13 +97,13 @@ const IconMobile = styled.div`
 const MobileNavSlide = (props) => {
     return (
         <Wrapper hide={props.hidden}>
-            <Links>
-                <h1>Premium</h1>
-                <h1>Download</h1>
-                <Divider/>
-                <h2>Sign Up</h2>
-                <h2>Log In</h2>
-                <IconMobile />
+            <Links className="linkBox">
+                <h1 className="el">Premium</h1>
+                <h1 className="el">Download</h1>
+                <Divider className="el" />
+                <h2 className="el">Sign Up</h2>
+                <h2 className="el">Log In</h2>
+                <IconMobile className="el" />
             </Links>
 
         </Wrapper>
